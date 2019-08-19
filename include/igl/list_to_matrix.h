@@ -46,6 +46,9 @@ namespace igl
   // Vector wrapper
   template <typename T, typename Derived>
   IGL_INLINE bool list_to_matrix(const std::vector<T > & V,Eigen::PlainObjectBase<Derived>& M);
+  // Sparse version
+  template <typename T, typename Derived>
+  IGL_INLINE bool igl::list_to_sparse_matrix(const std::vector<std::vector<T > > & V,Eigen::PlainObjectBase<Derived>& M);
 }
 
 #ifndef IGL_STATIC_LIBRARY

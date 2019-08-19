@@ -14,6 +14,7 @@
 
 #include "max_size.h"
 #include "min_size.h"
+#include "noindex.h"
 
 template <typename T, typename Derived>
 IGL_INLINE bool igl::list_to_matrix(const std::vector<std::vector<T > > & V,Eigen::PlainObjectBase<Derived>& M)
@@ -115,6 +116,40 @@ IGL_INLINE bool igl::list_to_matrix(const std::vector<T > & V,Eigen::PlainObject
 
   return true;
 }
+
+template <typename T, typename Derived>
+IGL_INLINE bool igl::list_to_sparse_matrix(const std::vector<std::vector<T > > & V,Eigen::PlainObjectBase<Derived>& M)
+{
+  // number of rows
+  int m = V.size();
+  if(m == 0)
+  {
+    M.resize(0,0);
+    return true;
+  }
+  // number of columns
+  int n = igl::max_size(V);
+  if(n == igl::min_size(V))
+    return list_to_matrix(V, M);
+
+  assert(n != -1);
+  // Resize output
+  M.resize(m,n);
+  M.setConstant(static_cast<T>(igl::NO_INDEX));
+
+  // Loop over rows
+  for(int i = 0;i<m;i++)
+  {
+    // Loop over cols
+    for(int j = 0;j<V[i].size();j++)
+    {
+      M(i,j) = V[i][j];
+    }
+  }
+
+  return true;
+}
+
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation

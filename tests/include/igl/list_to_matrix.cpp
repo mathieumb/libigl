@@ -49,3 +49,39 @@ TEST_CASE("ListToMatrixTest: matrix", "[igl]")
 
 	test_common::run_test_cases(params, test_case);
 }
+
+TEST_CASE("ListToSparseMatrixTest", "[igl]")
+{
+	int n = 4;
+	int m = n;
+    std::vector<std::vector<int> > vX;
+	int count = 0;
+	for(int i = 0;i<=n;i++)
+	{
+		std::vector<int> v;
+		for(int j = 0;j<=i;j++)
+		{
+			v.push_back(count);
+			++count;
+		}
+		vX.push_back(std::move(v));
+	}
+
+	Eigen::MatrixXi mX1;
+	bool success = igl::list_to_matrix(vX,mX1);
+	REQUIRE (!success);
+
+	Eigen::MatrixXi mX2;
+	success = igl::list_to_sparse_matrix(vX,mX2);
+	REQUIRE (success);
+	for(int i = 0;i<n;i++)
+	{
+		for(int j = 0;j<m;j++)
+		{
+			if (j < vX[i].size())
+				REQUIRE (mX2(i,j) == vX[i][j]);
+			else
+				REQUIRE (mX2(i,j) == -1);
+		}
+	}
+}

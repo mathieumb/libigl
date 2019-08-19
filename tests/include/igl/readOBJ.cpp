@@ -10,3 +10,15 @@ TEST_CASE("readOBJ: simple", "[igl]")
     REQUIRE (V.rows() == 8);
     REQUIRE (F.rows() == 12);
 }
+
+TEST_CASE("readOBJ: quads and tris", "[igl]")
+{
+    Eigen::MatrixXd V;
+    Eigen::MatrixXi F;
+    bool success = igl::readOBJ(test_common::data_path("house.obj"), V, F);
+
+    REQUIRE (success);
+    REQUIRE (V.rows() == 9);
+    REQUIRE (F.rows() == 9);
+
+}
