@@ -336,7 +336,7 @@ IGL_INLINE bool igl::readOBJ(
     // message to stderr
     return false;
   }
-  bool V_rect = igl::list_to_matrix(vV,V);
+  bool V_rect = igl::list_to_sparse_matrix(vV,V);
   if(!V_rect)
   {
     // igl::list_to_matrix(vV,V) already printed error message to std err
