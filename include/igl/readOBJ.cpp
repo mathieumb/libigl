@@ -311,7 +311,7 @@ IGL_INLINE bool igl::readOBJ(
   if(!vFTC.empty()&& !vFTC[0].empty())
   {
 
-    bool FTC_rect = igl::list_to_matrix(vFTC,FTC);
+    bool FTC_rect = igl::list_to_sparse_matrix(vFTC,FTC);
     if(!FTC_rect)
     {
       printf(format,"FTC",igl::min_size(vFTC),igl::max_size(vFTC));
