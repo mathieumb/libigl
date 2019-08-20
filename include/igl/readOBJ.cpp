@@ -290,7 +290,7 @@ IGL_INLINE bool igl::readOBJ(
 
   if(!vFN.empty() && !vFN[0].empty())
   {
-    bool FN_rect = igl::list_to_matrix(vFN,FN);
+    bool FN_rect = igl::list_to_sparse_matrix(vFN,FN);
     if(!FN_rect)
     {
       printf(format,"FN",igl::min_size(vFN),igl::max_size(vFN));
