@@ -272,7 +272,7 @@ IGL_INLINE bool igl::readOBJ(
     printf(format,"V",igl::min_size(vV),igl::max_size(vV));
     return false;
   }
-  bool F_rect = igl::list_to_matrix(vF,F);
+  bool F_rect = igl::list_to_sparse_matrix(vF,F);
   if(!F_rect)
   {
     printf(format,"F",igl::min_size(vF),igl::max_size(vF));
@@ -336,13 +336,13 @@ IGL_INLINE bool igl::readOBJ(
     // message to stderr
     return false;
   }
-  bool V_rect = igl::list_to_sparse_matrix(vV,V);
+  bool V_rect = igl::list_to_matrix(vV,V);
   if(!V_rect)
   {
     // igl::list_to_matrix(vV,V) already printed error message to std err
     return false;
   }
-  bool F_rect = igl::list_to_matrix(vF,F);
+  bool F_rect = igl::list_to_sparse_matrix(vF,F);
   if(!F_rect)
   {
     // igl::list_to_matrix(vF,F) already printed error message to std err
